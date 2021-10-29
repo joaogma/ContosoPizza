@@ -51,17 +51,15 @@ namespace ContosoPizza.Controllers
             return NoContent();
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, Pizza pizza)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
-            if (id != pizza.Id)
-                return BadRequest();
+            var pizza = PizzaService.Get(id);
 
-            var existingPizza = PizzaService.Get(id);
-            if(existingPizza is null)
+            if (pizza is null)
                 return NotFound();
 
-            PizzaService.Update(pizza);           
+            PizzaService.Delete(id);
 
             return NoContent();
         }
